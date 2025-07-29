@@ -1,0 +1,5 @@
+# Re-include specific folders
+!build/web/
+!build/web/**
+!backend/
+!backend/**
