@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Password Reset Flow</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        input[type="email"] {
+            width: 300px;
+            padding: 8px;
+            margin: 10px 0;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <h1>Password Reset Flow Test</h1>
+    
+    <div class="test-section">
+        <h3>Step 1: Request Password Reset</h3>
+        <p>Enter an email to test the forgot password functionality:</p>
+        <input type="email" id="resetEmail" placeholder="Enter email address" value="test@example.com">
+        <button onclick="requestReset()">Send Reset Email</button>
+        <div id="resetResult" class="result" style="display: none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Step 2: Test Reset Form</h3>
+        <p>Test the reset form with a sample token:</p>
+        <button onclick="testResetForm()">Open Reset Form (Test Token)</button>
+    </div>
+
+    <script>
+        async function requestReset() {
+            const email = document.getElementById('resetEmail').value;
+            const resultDiv = document.getElementById('resetResult');
+            
+            if (!email) {
+                showResult(resultDiv, 'Please enter an email address', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/crm/backend/api/forgot_password.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: email })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    showResult(resultDiv, 'Reset email sent successfully! Check your email.', 'success');
+                } else {
+                    showResult(resultDiv, data.message || 'Failed to send reset email', 'error');
+                }
+            } catch (error) {
+                showResult(resultDiv, 'Error: ' + error.message, 'error');
+            }
+        }
+
+        function testResetForm() {
+            // Open the reset form with a test token
+            window.open('/crm/reset_password_form.php?token=test_token_123', '_blank');
+        }
+
+        function showResult(element, message, type) {
+            element.textContent = message;
+            element.className = 'result ' + type;
+            element.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
