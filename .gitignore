@@ -1,5 +1,10 @@
-# Re-include specific folders
+# Ignore everything
+*
+
+# But not these
+!.gitignore
 !build/web/
 !build/web/**
 !backend/
 !backend/**
+
