@@ -55373,7 +55373,7 @@ $S:10}
 A.awi.prototype={
 $1(a){var s
 if(a==null||B.q.bJ(a).length===0)return"Please enter an email"
-s=A.dm("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$",!0,!1)
+s=A.dm("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}\x00$",!0,!1)
 if(!s.b.test(a))return"Please enter a valid email"
 return null},
 $S:10}
