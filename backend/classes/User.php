@@ -10,6 +10,7 @@ class User {
     public $first_name;
     public $last_name;
     public $role;
+    public $phone;
     public $is_active;
     public $reset_token;
     public $reset_token_expires_at;
@@ -50,7 +51,7 @@ class User {
     }
 
     public function emailExists() {
-        $query = "SELECT id, company_id, email, password, first_name, last_name, role 
+        $query = "SELECT id, company_id, email, password, first_name, last_name, phone, role 
                 FROM " . $this->table_name . " 
                 WHERE email = ? LIMIT 0,1";
 
@@ -68,6 +69,7 @@ class User {
             $this->password_hash = $row['password'];
             $this->first_name = $row['first_name'];
             $this->last_name = $row['last_name'];
+            $this->phone = $row['phone'];
             $this->role = $row['role'];
             return true;
         }

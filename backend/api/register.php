@@ -66,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     'email' => $data->email,
                     'first_name' => $data->first_name,
                     'last_name' => $data->last_name,
+                    'phone' => isset($data->phone) ? $data->phone : null,
                     'role' => 'admin'
                 ));
 
@@ -79,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         "email" => $data->email,
                         "first_name" => $data->first_name,
                         "last_name" => $data->last_name,
+                        "phone" => isset($data->phone) ? $data->phone : null,
                         "role" => 'admin'
                     )
                 ));
